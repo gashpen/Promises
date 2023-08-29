@@ -1,10 +1,11 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable class-methods-use-this */
 import read from './reader';
 import json from './parser';
 import GameSaving from './GameSaving';
 
 export default class GameSavingLoader {
-  load() {
+  /* load() {
     const p = new Promise((resolve) => {
       setTimeout(() => {
         const data = read();
@@ -24,5 +25,17 @@ export default class GameSavingLoader {
         console.log(save.saving);
       });
     });
+  } */
+  async load() {
+    try {
+      const data = await read();
+      const value = await json(data);
+      const save = new GameSaving(value);
+      console.log(save.saving)
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log('finally');
+    }
   }
 }
